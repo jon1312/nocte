@@ -19,9 +19,8 @@
    COLOUR blush ground, plum ink and night bands, rose satin, one berry accent for actions
    TYPE Instrument Serif display + Inter text
    LAYOUT laptop: hero with kit drawing across the width under the title; scroll story = sticky stage left, steps right. phone: stage sticky on top, steps under */
-:root{color-scheme:light dark;--bg:light-dark(#fbeee9,#1b0f1e);--ink:light-dark(#2a1630,#f6e6ea);--soft:light-dark(#6b4a63,#cdb3c4);--card:light-dark(#fff8f5,#26162b);--line:light-dark(#ebcfc8,#3b2540);--satin:#e8a9a0;--satin2:#fbd9d1;--satin3:#c9827a;--berry:light-dark(#b3124e,#ff7aa2);--plum:#2a1630;--hair:#6b3b26;--hair2:#8a5134;--skin:#e9c2a6}
+:root{color-scheme:light;--bg:light-dark(#fbeee9,#1b0f1e);--ink:light-dark(#2a1630,#f6e6ea);--soft:light-dark(#6b4a63,#cdb3c4);--card:light-dark(#fff8f5,#26162b);--line:light-dark(#ebcfc8,#3b2540);--satin:#e8a9a0;--satin2:#fbd9d1;--satin3:#c9827a;--berry:light-dark(#b3124e,#ff7aa2);--plum:#2a1630;--hair:#6b3b26;--hair2:#8a5134;--skin:#e9c2a6}
 :root[data-theme=light]{color-scheme:light}
-:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
@@ -39,8 +38,6 @@ nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-con
 .links a{text-decoration:none;color:var(--soft)}
 .links a:hover{color:var(--ink)}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;border-radius:999px;border:0;background:var(--berry);color:#fff;font:600 16px Inter,sans-serif;text-decoration:none;cursor:pointer}
-:root[data-theme=dark] .btn{color:#2a0a17}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .btn{color:#2a0a17}}
 .btn:hover{filter:brightness(1.08)}
 .btn:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--satin3);outline-offset:3px}
 .ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
@@ -62,14 +59,18 @@ nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-con
 .nightph{margin:28px 0 0;border-radius:24px;overflow:hidden;height:clamp(220px,30vw,400px)}
 .nightph img{width:100%;height:100%;object-fit:cover;display:block}
 .illu{font-size:13px;color:var(--soft);margin-top:10px}
-.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 16px}
 .fact{padding:16px 18px;border-top:1px solid var(--line)}
 .fact b{display:block;font-family:"Instrument Serif",serif;font-weight:400;font-size:28px;line-height:1.1}
 .fact span{font-size:14px;color:var(--soft)}
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(24px,4vw,64px)}
 .stagebox{position:sticky;top:84px;height:calc(100svh - 110px);max-height:720px;border-radius:28px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
-.stagebox svg{width:100%;height:100%;display:block}
-.prog{position:absolute;left:18px;right:18px;bottom:16px;height:4px;border-radius:4px;background:var(--line)}
+.frames{position:absolute;inset:0}
+.frames img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease;will-change:transform}
+.frames img.on{opacity:1}
+.tag{position:absolute;left:16px;top:16px;display:flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;background:rgba(255,248,245,.92);color:#2a1630;font-size:15px;font-weight:500}
+.tag b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--berry);color:#fff;font-weight:600}
+.prog{position:absolute;left:18px;right:18px;bottom:16px;height:4px;border-radius:4px;background:rgba(255,255,255,.55)}
 .prog i{display:block;height:100%;width:0;border-radius:4px;background:var(--berry)}
 .steps{display:grid;gap:0}
 .step{min-height:62svh;display:flex;flex-direction:column;justify-content:center;gap:10px;padding-block:24px;opacity:.45;transition:opacity .3s}
@@ -109,9 +110,9 @@ input::placeholder{color:#cdb3c4}
 .note{font-size:14px;color:#cdb3c4;margin-top:12px;min-height:1.4em}
 footer{padding:32px max(5vw,16px);display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;font-size:14px;color:var(--soft);border-top:1px solid var(--line)}
 .sample{font-size:13px;color:var(--soft);margin-top:10px}
-@media(max-width:900px){.kit{grid-template-columns:repeat(2,minmax(0,1fr))}.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){.kit{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.shots,.pair{grid-template-columns:minmax(0,1fr)}.shots .ph:not(.big){display:none}.hero-top,.two,.cta{grid-template-columns:minmax(0,1fr)}.links{display:none}.story{grid-template-columns:minmax(0,1fr)}.stagebox{top:64px;height:46svh;z-index:5}.step{min-height:46svh}.cmp{grid-template-columns:minmax(0,1fr)}.cmp>div+div{border-left:0;border-top:1px solid var(--line)}.row{grid-template-columns:7.5em minmax(0,1fr) 5.5em}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.step{opacity:1}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.frames img{transition:none}}
 </style>
 </head>
 <body>
@@ -147,7 +148,15 @@ footer{padding:32px max(5vw,16px);display:flex;flex-wrap:wrap;gap:16px 32px;just
     <p class="lede" style="margin-top:12px">Scroll to wrap, sleep and unwrap.</p>
     <div class="story" style="margin-top:28px">
       <div class="stagebox">
-        <svg id="stage" viewBox="0 0 400 480" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Animated drawing of hair being wrapped around the satin rod, set overnight and unwrapped into curls"></svg>
+        <div class="frames" id="frames">
+          <img src="kit.jpg" alt="" data-x="50" data-y="50">
+          <img src="kit.jpg" alt="" data-x="40" data-y="30" data-z="1.35">
+          <img src="wrap.jpg" alt="" data-x="50" data-y="30">
+          <img src="wrap.jpg" alt="" data-x="70" data-y="62" data-z="1.45">
+          <img src="night.jpg" alt="" data-x="45" data-y="55">
+          <img src="curls.jpg" alt="" data-x="50" data-y="50">
+        </div>
+        <div class="tag" id="tag"><b id="tagn">1</b><span id="tagt">Damp hair</span></div>
         <div class="prog"><i id="bar"></i></div>
       </div>
       <div class="steps" id="steps">
@@ -274,76 +283,22 @@ document.getElementById('kitgrid').innerHTML=kit.map(k=>`<div class="item"><svg 
 const lens=[['Chin length',20,'Too short'],['Shoulder length',62,'Waves'],['Below shoulders',85,'Curls'],['Mid-back and longer',100,'Best curls']];
 document.getElementById('len').innerHTML=lens.map(l=>`<div class="row"><span>${l[0]}</span><span class="bar"><i style="width:${l[1]}%"></i></span><em>${l[2]}</em></div>`).join('');
 
-/* scroll stage */
-const st=document.getElementById('stage');
-const rodD='M118 410 C 104 260, 112 118, 200 104 C 288 118, 296 260, 282 410';
-st.innerHTML=`<defs>
-<linearGradient id="g-sat" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9827a"/><stop offset=".5" stop-color="#fbd9d1"/><stop offset="1" stop-color="#c9827a"/></linearGradient>
-<radialGradient id="g-scr" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fbd9d1"/><stop offset="1" stop-color="#b9706a"/></radialGradient>
-<linearGradient id="g-hair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5134"/><stop offset="1" stop-color="#5a301e"/></linearGradient>
-</defs>
-<rect width="400" height="480" fill="#fbe3dc"/>
-<circle id="sun" cx="300" cy="110" r="46" fill="#ffd9cf"/>
-<g id="stars" opacity="0"></g>
-<path id="hair" fill="url(#g-hair)"/>
-<ellipse cx="200" cy="150" rx="66" ry="72" fill="url(#g-hair)"/>
-<path d="M150 122 q50 -40 100 0" stroke="#a86a4a" stroke-width="3" fill="none" opacity=".6"/>
-<g id="drops"></g>
-<g id="rodg"><path id="rodp" d="${rodD}" fill="none" stroke="url(#g-sat)" stroke-width="24" stroke-linecap="round"/><path d="${rodD}" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="3" stroke-linecap="round" transform="translate(-4 0)"/></g>
-<g id="wraps"></g>
-<g id="clipg"><rect x="172" y="92" width="56" height="22" rx="11" fill="#2a1630"/><path d="M178 112 v14 M190 112 v16 M202 112 v16 M214 112 v14" stroke="#2a1630" stroke-width="5" stroke-linecap="round"/></g>
-<g id="scrs"></g>
-<rect id="dark" width="400" height="480" fill="#2a1630" opacity="0"/>
-<g id="moon" opacity="0"><circle cx="300" cy="96" r="30" fill="#f6e6ea"/><circle cx="314" cy="86" r="28" fill="#2a1630"/></g>`;
-const $=id=>st.querySelector('#'+id);
-const rodP=$('rodp'),RL=rodP.getTotalLength();
-let stars='';let s=7;const rnd=()=>(s=s*16807%2147483647)/2147483647;
-for(let i=0;i<26;i++)stars+=`<circle cx="${(rnd()*400).toFixed(0)}" cy="${(rnd()*260).toFixed(0)}" r="${(rnd()*1.6+.6).toFixed(1)}" fill="#f6e6ea"/>`;
-$('stars').innerHTML=stars;
-let drops='';for(let i=0;i<9;i++)drops+=`<path d="M0 0 q5 8 0 12 q-5 -4 0 -12z" fill="#9fd0e6" opacity=".8" transform="translate(${130+i*17} ${200+(i%3)*60})"/>`;
-$('drops').innerHTML=drops;
-
-/* hair outline: length 0..1, curl amplitude */
-const hairPath=(len,amp)=>{const top=150,bot=top+len*285;const L=[],R=[];const N=28;
- for(let i=0;i<=N;i++){const y=top+(bot-top)*i/N;const w=70+ (y-top)*.14;const c=amp*Math.sin(i*1.15)*(i/N);L.push([200-w+c,y]);R.push([200+w+c*.8,y]);}
- let d=`M${L[0][0]} ${L[0][1]}`;L.forEach(p=>d+=` L${p[0].toFixed(1)} ${p[1].toFixed(1)}`);
- for(let i=0;i<=8;i++){const x=L[N][0]+(R[N][0]-L[N][0])*i/8;d+=` L${x.toFixed(1)} ${(bot+(amp?Math.abs(Math.sin(i*1.4))*amp*1.4:0)).toFixed(1)}`;}
- for(let i=N;i>=0;i--)d+=` L${R[i][0].toFixed(1)} ${R[i][1].toFixed(1)}`;return d+'Z';};
+/* scroll stage: photo frames switch and slowly zoom with scroll */
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
-const seg=(p,i)=>clamp(p*6-i);
-
-const wrapsG=$('wraps');
-const render=p=>{
- const s0=seg(p,0),s1=seg(p,1),s2=seg(p,2),s3=seg(p,3),s4=seg(p,4),s5=seg(p,5);
- /* drops fall in step 1 */
- $('drops').setAttribute('opacity',(1-s1).toFixed(2));
- $('drops').setAttribute('transform',`translate(0 ${(s0*30).toFixed(1)})`);
- /* rod drops in step 2, fades in step 6 */
- $('rodg').setAttribute('transform',`translate(0 ${((1-s1)*-260).toFixed(1)})`);
- $('rodg').setAttribute('opacity',(s1>0?1-s5*.95:0).toFixed(2));
- $('clipg').setAttribute('opacity',(s1>.6&&s3<.5?1:0));
- /* hair shortens as it is wrapped, returns curly at the end */
- const len=s5>0?(.45+.55*s5):(1-.58*s2);
- $('hair').setAttribute('d',hairPath(len,s5*16));
- /* wraps along both rod ends */
- const n=Math.round(s2*9);let w='';
- if(s5<1)for(let side=0;side<2;side++)for(let k=0;k<n;k++){const t=side?1-(.06+k*.045):(.06+k*.045);const q=rodP.getPointAtLength(t*RL);w+=`<path d="M${(q.x-17).toFixed(1)} ${(q.y-6).toFixed(1)} q17 -10 34 6" stroke="#6b3b26" stroke-width="9" stroke-linecap="round" fill="none"/>`;}
- wrapsG.innerHTML=w;wrapsG.setAttribute('opacity',(1-s5).toFixed(2));
- /* scrunchies in step 4 */
- const sc=s3*(1-s5);$('scrs').innerHTML=sc>0?`<g transform="translate(118 404) scale(${sc.toFixed(2)})">${scrunchSmall()}</g><g transform="translate(282 404) scale(${sc.toFixed(2)})">${scrunchSmall()}</g>`:'';
- /* night in step 5, morning in step 6 */
- const night=s4*(1-s5);$('dark').setAttribute('opacity',(night*.72).toFixed(2));$('moon').setAttribute('opacity',night.toFixed(2));$('stars').setAttribute('opacity',night.toFixed(2));$('sun').setAttribute('opacity',(1-night).toFixed(2));
- document.getElementById('bar').style.width=(p*100).toFixed(1)+'%';
-};
-const scrunchSmall=()=>{let g='';for(let i=0;i<12;i++){const a=i/12*Math.PI*2;g+=`<circle cx="${(Math.cos(a)*16).toFixed(1)}" cy="${(Math.sin(a)*10).toFixed(1)}" r="8" fill="url(#g-scr)"/>`;}return g;};
-
+const fr=[...document.querySelectorAll('#frames img')];
+const labels=['Damp hair','Place the rod','Wrap','Secure the ends','Sleep on it','Unwrap'];
 const steps=[...document.querySelectorAll('.step')];
 const box=document.getElementById('steps');
-let ticking=false;
+let cur=-1,ticking=false;
 const update=()=>{ticking=false;const r=box.getBoundingClientRect();const vh=innerHeight;
  const p=clamp((vh*.55-r.top)/(r.height-vh*.25));
- render(reduce?1:p);
- const idx=Math.min(5,Math.floor(p*6));steps.forEach((el,i)=>el.classList.toggle('on',i===idx));};
+ const idx=Math.min(5,Math.floor(p*6));const local=clamp(p*6-idx);
+ if(idx!==cur){cur=idx;fr.forEach((f,i)=>f.classList.toggle('on',i===idx));steps.forEach((el,i)=>el.classList.toggle('on',i===idx));
+  document.getElementById('tagn').textContent=idx+1;document.getElementById('tagt').textContent=labels[idx];}
+ const f=fr[idx],z=+(f.dataset.z||1.12);
+ f.style.transformOrigin=f.dataset.x+'% '+f.dataset.y+'%';
+ f.style.transform=reduce?'none':`scale(${(1+(z-1)*local).toFixed(4)})`;
+ document.getElementById('bar').style.width=(p*100).toFixed(1)+'%';};
 addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(update);}},{passive:true});
 addEventListener('resize',update);
 update();
