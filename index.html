@@ -32,7 +32,7 @@ p{margin:0}
 a{color:inherit}
 .wrap{max-width:1240px;margin:0 auto}
 .band{padding-block:clamp(40px,6vw,96px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
-nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px max(5vw,16px);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px max(5vw,16px);background:var(--bg);border-bottom:1px solid var(--line)}
 .logo{font-family:"Instrument Serif",serif;font-size:28px;letter-spacing:.06em;text-decoration:none}
 .links{display:flex;gap:22px;flex-wrap:wrap;font-size:15px}
 .links a{text-decoration:none;color:var(--soft)}
@@ -64,16 +64,16 @@ nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-con
 .fact b{display:block;font-family:"Instrument Serif",serif;font-weight:400;font-size:28px;line-height:1.1}
 .fact span{font-size:14px;color:var(--soft)}
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(24px,4vw,64px)}
-.stagebox{position:sticky;top:84px;height:calc(100svh - 110px);max-height:720px;border-radius:28px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.stagebox{position:sticky;top:84px;height:min(720px,calc(var(--vh,800px) - 110px));border-radius:28px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
 .frames{position:absolute;inset:0}
-.frames img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease;will-change:transform}
+.frames img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease}
 .frames img.on{opacity:1}
 .tag{position:absolute;left:16px;top:16px;display:flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;background:rgba(255,248,245,.92);color:#2a1630;font-size:15px;font-weight:500}
 .tag b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--berry);color:#fff;font-weight:600}
 .prog{position:absolute;left:18px;right:18px;bottom:16px;height:4px;border-radius:4px;background:rgba(255,255,255,.55)}
 .prog i{display:block;height:100%;width:0;border-radius:4px;background:var(--berry)}
 .steps{display:grid;gap:0}
-.step{min-height:62svh;display:flex;flex-direction:column;justify-content:center;gap:10px;padding-block:24px;opacity:.45;transition:opacity .3s}
+.step{min-height:calc(var(--vh,800px)*.62);display:flex;flex-direction:column;justify-content:center;gap:10px;padding-block:24px;opacity:.45;transition:opacity .3s}
 .step.on{opacity:1}
 .step .n{font:600 14px Inter,sans-serif;color:var(--berry)}
 .step p{color:var(--soft);font-size:17px;max-width:30em}
@@ -111,7 +111,7 @@ input::placeholder{color:#cdb3c4}
 footer{padding:32px max(5vw,16px);display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;font-size:14px;color:var(--soft);border-top:1px solid var(--line)}
 .sample{font-size:13px;color:var(--soft);margin-top:10px}
 @media(max-width:900px){.kit{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.shots,.pair{grid-template-columns:minmax(0,1fr)}.shots .ph:not(.big){display:none}.hero-top,.two,.cta{grid-template-columns:minmax(0,1fr)}.links{display:none}.story{grid-template-columns:minmax(0,1fr)}.stagebox{top:64px;height:46svh;z-index:5}.step{min-height:46svh}.cmp{grid-template-columns:minmax(0,1fr)}.cmp>div+div{border-left:0;border-top:1px solid var(--line)}.row{grid-template-columns:7.5em minmax(0,1fr) 5.5em}}
+@media(max-width:760px){.shots,.pair{grid-template-columns:minmax(0,1fr)}.shots .ph:not(.big){display:none}.hero-top,.two,.cta{grid-template-columns:minmax(0,1fr)}.links{display:none}.story{grid-template-columns:minmax(0,1fr)}.stagebox{top:64px;height:calc(var(--vh,700px)*.46);z-index:5}.step{min-height:calc(var(--vh,700px)*.46)}.cmp{grid-template-columns:minmax(0,1fr)}.cmp>div+div{border-left:0;border-top:1px solid var(--line)}.row{grid-template-columns:7.5em minmax(0,1fr) 5.5em}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.frames img{transition:none}}
 </style>
 </head>
@@ -263,6 +263,8 @@ footer{padding:32px max(5vw,16px);display:flex;flex-wrap:wrap;gap:16px 32px;just
 {
 const NS='http://www.w3.org/2000/svg';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* fixed viewport height, updated only when the width changes (stops mobile URL-bar jumps) */
+let vw0=0;const setVh=()=>{if(innerWidth!==vw0){vw0=innerWidth;document.documentElement.style.setProperty('--vh',innerHeight+'px');}};setVh();addEventListener('resize',setVh);
 
 /* scrunchie drawing: ruffled ring */
 const scrunch=(cx,cy,r,id)=>{let s='';const n=18;for(let i=0;i<n;i++){const a=i/n*Math.PI*2;s+=`<circle cx="${(cx+Math.cos(a)*r).toFixed(1)}" cy="${(cy+Math.sin(a)*r*.62).toFixed(1)}" r="${(r*.42).toFixed(1)}" fill="url(#${id})"/>`;}return `<g>${s}<ellipse cx="${cx}" cy="${cy}" rx="${r*.5}" ry="${r*.3}" fill="#2a1630" opacity=".18"/></g>`;};
